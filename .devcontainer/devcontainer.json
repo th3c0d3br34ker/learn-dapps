@@ -1,0 +1,19 @@
+{
+  "name": "DApps",
+  "extensions": [
+	"github.copilot",
+	"esbenp.prettier-vscode",
+	"dbaeumer.vscode-eslint",
+	"juanblanco.solidity"
+],
+"build": {
+	"dockerfile": "Dockerfile",
+	"args": {
+		"VARIANT": "16-bullseye"
+	}
+},
+"runArgs": [
+	"--init"
+],
+"remoteUser": "node"
+}
