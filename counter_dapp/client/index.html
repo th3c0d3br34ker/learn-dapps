@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>First DApp</title>
+  </head>
+  <body>
+    Increment
+    <button id="incr">+</button>
+    <br />
+    Decrement
+    <button id="decr">-</button>
+    <br />
+    <label id="myLabel"></label>
+    <br />
+    <div id="myAccounts"></div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.2.6/dist/web3.min.js"></script>
+  <script>
+    const web3 = new Web3("http://localhost:8545");
+    const contractAddress = "<address of the deployed contract>";
+    const abi = [
+      {
+        inputs: [],
+        name: "counter",
+        outputs: [{ internalType: "int256", name: "", type: "int256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "decrement",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "get",
+        outputs: [{ internalType: "int256", name: "", type: "int256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "increment",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+    ];
+    const contract = new web3.eth.Contract(abi, contractAddress);
+
+    let accounts = [];
+    web3.eth.getAccounts().then((result) => {
+      accounts = result;
+      for (let i = 0; i < accounts.length; i++) {
+        $("#myAccounts").append(`<div>${accounts[i]}</div>`);
+      }
+    });
+
+    contract.methods.get().call((err, res) => {
+      if (err) {
+        console.log(err);
+      } else {
+        $("#myLabel").text(res);
+      }
+    });
+    $("#incr").click(() => {
+      contract.methods.increment().send(
+        { from: accounts[0] },
+        contract.methods.get().call((err, res) => {
+          if (err) {
+            console.log(err);
+          } else {
+            $("#myLabel").text(res);
+          }
+        })
+      );
+    });
+    $("#decr").click(() => {
+      contract.methods.decrement().send(
+        { from: accounts[0] },
+        contract.methods.get().call((err, res) => {
+          if (err) {
+            console.log(err);
+          } else {
+            $("#myLabel").text(res);
+          }
+        })
+      );
+    });
+  </script>
+</html>
