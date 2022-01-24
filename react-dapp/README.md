@@ -13,3 +13,23 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
+
+## Installation
+
+1. Compile the Contracts
+
+```bash
+npx hardhat compile
+```
+
+1. Start the hardhat local server
+
+```bash
+npx hardhat node
+```
+
+1. Deploy the Contracts
+
+```bash
+npx hardhat scripts/deploy.js --network localhost
+```
