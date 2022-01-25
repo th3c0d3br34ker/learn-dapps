@@ -1,0 +1,19 @@
+{
+  "name": "defi-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.4.2"
+  },
+  "devDependencies": {
+    "ganache": "^7.0.0",
+    "truffle": "^5.4.30"
+  }
+}
